@@ -16,8 +16,13 @@ export default function Header() {
       </div>
       <div>
         <ul>
-          <Button variant="text">Login</Button>
-          <Button variant="contained">Register</Button>
+          <Button variant="text">
+            <Link to="/login">Login</Link>
+          </Button>
+
+          <Link to="/register">
+            <Button variant="contained">Register</Button>
+          </Link>
         </ul>
       </div>
     </div>

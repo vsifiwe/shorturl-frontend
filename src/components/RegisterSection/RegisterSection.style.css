@@ -1,0 +1,21 @@
+.login {
+  display: flex;
+  height: 80vh;
+}
+
+.left {
+  width: 50%;
+  background-color: aquamarine;
+}
+
+.right {
+  /* margin: 0 0 0 5%; */
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  margin-bottom: 3%;
+  width: 100%;
+}
