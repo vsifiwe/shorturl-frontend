@@ -1,10 +1,11 @@
 import React from "react";
-import { Header } from "../../components";
+import { Header, HeroSection } from "../../components";
 
 export default function LandingPage() {
   return (
     <div>
       <Header />
+      <HeroSection />
     </div>
   );
 }
