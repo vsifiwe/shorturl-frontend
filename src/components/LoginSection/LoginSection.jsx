@@ -1,23 +1,24 @@
 import React from "react";
 import "./LoginSection.style.css";
-import {
-  FormControl,
-  TextField,
-  FormHelperText,
-  InputLabel,
-  Button,
-} from "@mui/material";
+import { FormControl, TextField, Button } from "@mui/material";
 import { useFormik } from "formik";
 import LoadingButton from "../LoadingButton";
+import { useSelector, useDispatch } from "react-redux";
+import { handleEmailLogin } from "../../redux/slice/authSlice";
 
 export default function LoginSection() {
+  const isLoading = useSelector((state) => state.auth.isLoading);
+  const dispatch = useDispatch();
+
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      dispatch(handleEmailLogin(values)).then(() => {
+        console.log("done");
+      });
     },
   });
 
@@ -50,8 +51,7 @@ export default function LoginSection() {
               />
             </FormControl>
           </div>
-          <LoadingButton />
-          <Button type="submit">Login</Button>
+          {isLoading ? <LoadingButton /> : <Button type="submit">Login</Button>}
         </form>
       </div>
     </div>

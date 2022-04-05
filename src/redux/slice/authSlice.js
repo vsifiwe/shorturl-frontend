@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isLoggedIn: false,
+  isLoading: false,
   userInfo: {
     name: "",
     emailId: "",
@@ -32,9 +33,16 @@ export const slice = createSlice({
       state.userInfo = newUserInfo;
       state.isLoggedIn = false;
     },
+    handleEmailLogin: (state, action) => {
+      console.log(action.payload);
+    },
   },
 });
-export const { responseGoogleSuccess, responseGoogleError, handleLogout } =
-  slice.actions;
+export const {
+  responseGoogleSuccess,
+  responseGoogleError,
+  handleLogout,
+  handleEmailLogin,
+} = slice.actions;
 
 export default slice.reducer;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -10,35 +10,6 @@ const CLIENT_ID =
   "669396506576-uo15mmnd9n7hog8a06b1okovh7d4e02u.apps.googleusercontent.com";
 
 export default function GoogleButton() {
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const [userInfo, setUserInfo] = useState({
-  //   name: "",
-  //   emailId: "",
-  // });
-  // let responseGoogleSuccess = (response) => {
-  //   let newUserInfo = {
-  //     name: response.profileObj.name,
-  //     emailId: response.profileObj.email,
-  //   };
-  //   setUserInfo(newUserInfo);
-  //   setIsLoggedIn(true);
-  // };
-
-  // // Error Handler
-  // let responseGoogleError = (response) => {
-  //   console.log(response);
-  // };
-
-  // // Logout Session and Update State
-  // let logout = (response) => {
-  //   let newUserInfo = {
-  //     name: "",
-  //     emailId: "",
-  //   };
-  //   setUserInfo(newUserInfo);
-  //   setIsLoggedIn(false);
-  // };
-
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const userInfo = useSelector((state) => state.auth.userInfo);
   const dispatch = useDispatch();

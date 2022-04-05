@@ -59,7 +59,7 @@ export default function RegisterSection() {
             </FormControl>
           </div>
 
-          <Button type="submit">Login</Button>
+          <Button type="submit">Register</Button>
         </form>
       </div>
     </div>
