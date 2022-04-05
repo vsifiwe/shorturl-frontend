@@ -4,9 +4,12 @@ import { FormControl, TextField, Button } from "@mui/material";
 import { useFormik } from "formik";
 import LoadingButton from "../LoadingButton";
 import { useSelector, useDispatch } from "react-redux";
-import { handleEmailLogin } from "../../redux/slice/authSlice";
+import { handleEmailLogin, startEmailLogin } from "../../redux/slice/authSlice";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginSection() {
+  const navigate = useNavigate();
   const isLoading = useSelector((state) => state.auth.isLoading);
   const dispatch = useDispatch();
 
@@ -16,9 +19,11 @@ export default function LoginSection() {
       password: "",
     },
     onSubmit: (values) => {
-      dispatch(handleEmailLogin(values)).then(() => {
-        console.log("done");
-      });
+      dispatch(() => dispatch(startEmailLogin()));
+      axios
+        .post(`http://localhost:8000/auth/login/`, values)
+        .then((res) => dispatch(handleEmailLogin(res.data)))
+        .then(() => navigate("/dashboard"));
     },
   });
 

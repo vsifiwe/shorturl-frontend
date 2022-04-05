@@ -2,8 +2,15 @@ import React from "react";
 import "./RegisterSection.style.css";
 import { FormControl, TextField, FormHelperText, Button } from "@mui/material";
 import { useFormik } from "formik";
+import { startEmailLogin } from "../../redux/slice/authSlice";
+import { useDispatch } from "react-redux";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function RegisterSection() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -11,7 +18,11 @@ export default function RegisterSection() {
       password: "",
     },
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      dispatch(() => startEmailLogin());
+      axios
+        .post("http://localhost:8000/auth/register", values)
+        .then(() => navigate("/login"))
+        .catch(() => alert("An error occured in your registration"));
     },
   });
   return (

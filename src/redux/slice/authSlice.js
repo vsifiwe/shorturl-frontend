@@ -7,6 +7,10 @@ const initialState = {
     name: "",
     emailId: "",
   },
+  tokens: {
+    access: "",
+    refresh: ""
+  }
 };
 
 export const slice = createSlice({
@@ -33,8 +37,23 @@ export const slice = createSlice({
       state.userInfo = newUserInfo;
       state.isLoggedIn = false;
     },
+    startEmailLogin: (state) => {
+      state.isLoading = true;
+    },
     handleEmailLogin: (state, action) => {
-      console.log(action.payload);
+      let newUserInfo = {
+        name: action.payload.username,
+        emailId: action.payload.email,
+      }
+
+      let tokens = {
+        access: action.payload.tokens.access, 
+        refresh: action.payload.tokens.refresh
+      }
+
+      state.userInfo = newUserInfo;
+      state.tokens = tokens;
+      state.isLoading = false;
     },
   },
 });
@@ -43,6 +62,7 @@ export const {
   responseGoogleError,
   handleLogout,
   handleEmailLogin,
+  startEmailLogin,
 } = slice.actions;
 
 export default slice.reducer;
