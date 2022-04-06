@@ -22,7 +22,8 @@ const initialState = {
     ],
     impressions: 0
   },
-  shorturls: []
+  shorturls: [],
+  deviceInfo: []
 };
 
 export const slice = createSlice({
@@ -72,8 +73,14 @@ export const slice = createSlice({
       state.isLoading = true
     },
     loadData: (state, action) => {
-      console.log(action.payload);
-      state.isLoading = false
+      const { totalViews, shorturls, deviceInfo } = action.payload;
+      state.currentView.impressions = totalViews;
+      state.shorturls = shorturls;
+      state.deviceInfo = deviceInfo;
+      state.currentView.data = deviceInfo;
+      state.isLoading = false;
+    },
+    updateCurrentView: (state, action) => {
     }
   },
 });
@@ -84,7 +91,8 @@ export const {
   handleEmailLogin,
   startEmailLogin,
   startLoading,
-  loadData
+  loadData,
+  updateCurrentView
 } = slice.actions;
 
 export default slice.reducer;
