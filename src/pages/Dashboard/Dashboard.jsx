@@ -18,7 +18,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import {
-  secondaryListItems,
+  SecondaryListItems,
   Views,
   Impressions,
   Chart,
@@ -109,7 +109,7 @@ function DashboardContent() {
     };
     axios
       .get("http://localhost:8000/s/urls", config)
-      .then((res) => dispatch(loadData(res.data.message)));
+      .then((res) => dispatch(loadData(res.data)));
   }, []);
 
   return (
@@ -168,7 +168,7 @@ function DashboardContent() {
           <List component="nav">
             {/* {mainListItems} */}
             {/* <Divider sx={{ my: 1 }} /> */}
-            {secondaryListItems}
+            <SecondaryListItems />
           </List>
         </Drawer>
         <Box

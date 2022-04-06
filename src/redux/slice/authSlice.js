@@ -81,6 +81,7 @@ export const slice = createSlice({
       state.isLoading = false;
     },
     updateCurrentView: (state, action) => {
+      console.log(action.payload)
     }
   },
 });

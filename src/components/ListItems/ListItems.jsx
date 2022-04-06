@@ -9,6 +9,8 @@ import PeopleIcon from "@mui/icons-material/People";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import LayersIcon from "@mui/icons-material/Layers";
 import AssignmentIcon from "@mui/icons-material/Link";
+import { useDispatch, useSelector } from "react-redux";
+import { updateCurrentView } from "../../redux/slice/authSlice";
 
 export const mainListItems = (
   <React.Fragment>
@@ -45,28 +47,22 @@ export const mainListItems = (
   </React.Fragment>
 );
 
-export const secondaryListItems = (
-  <React.Fragment>
-    <ListSubheader component="div" inset>
-      Short Links
-    </ListSubheader>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Current month" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Last quarter" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
-    </ListItemButton>
-  </React.Fragment>
-);
+export const SecondaryListItems = () => {
+  const data = useSelector((state) => state.auth.shorturls);
+  const dispatch = useDispatch();
+  return (
+    <React.Fragment>
+      <ListSubheader component="div" inset>
+        Short Links
+      </ListSubheader>
+      {data.map((d) => (
+        <ListItemButton onClick={() => dispatch(updateCurrentView(d))}>
+          <ListItemIcon>
+            <AssignmentIcon />
+          </ListItemIcon>
+          <ListItemText primary={d.uuid} />
+        </ListItemButton>
+      ))}
+    </React.Fragment>
+  );
+};
