@@ -10,11 +10,22 @@ const initialState = {
   tokens: {
     access: "",
     refresh: ""
+  },
+  currentView: {
+    data: [
+      {time: "12:00", amount: 1000},
+      {time: "13:00", amount: 1500},
+      {time: "14:00", amount: 1000},
+      {time: "15:00", amount: 2000},
+      {time: "16:00", amount: 3000},
+      {time: "17:00", amount: 1000},
+    ],
+    impressions: 0
   }
 };
 
 export const slice = createSlice({
-  name: "googleLogin",
+  name: "auth",
   initialState,
   reducers: {
     responseGoogleSuccess: (state, action) => {
