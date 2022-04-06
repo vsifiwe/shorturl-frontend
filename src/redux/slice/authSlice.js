@@ -13,15 +13,16 @@ const initialState = {
   },
   currentView: {
     data: [
-      {time: "12:00", amount: 1000},
-      {time: "13:00", amount: 1500},
-      {time: "14:00", amount: 1000},
-      {time: "15:00", amount: 2000},
-      {time: "16:00", amount: 3000},
-      {time: "17:00", amount: 1000},
+      {device: "ios", amount: 355},
+      {device: "windows", amount: 1500},
+      {device: "mobile chrome", amount: 567},
+      {device: "android", amount: 1786},
+      {device: "mobile safari", amount: 234},
+      {device: "macos", amount: 127},
     ],
     impressions: 0
-  }
+  },
+  shorturls: []
 };
 
 export const slice = createSlice({
@@ -65,7 +66,15 @@ export const slice = createSlice({
       state.userInfo = newUserInfo;
       state.tokens = tokens;
       state.isLoading = false;
+      state.isLoggedIn = true;
     },
+    startLoading: (state) => {
+      state.isLoading = true
+    },
+    loadData: (state, action) => {
+      console.log(action.payload);
+      state.isLoading = false
+    }
   },
 });
 export const {
@@ -74,6 +83,8 @@ export const {
   handleLogout,
   handleEmailLogin,
   startEmailLogin,
+  startLoading,
+  loadData
 } = slice.actions;
 
 export default slice.reducer;

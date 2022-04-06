@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
@@ -23,6 +23,9 @@ import {
   Impressions,
   Chart,
 } from "../../components";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { startLoading, loadData } from "../../redux/slice/authSlice";
 
 function Copyright(props) {
   return (
@@ -95,6 +98,19 @@ function DashboardContent() {
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  let token = useSelector((state) => state.auth.tokens.access);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(() => startLoading());
+    let config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    axios
+      .get("http://localhost:8000/s/urls", config)
+      .then((res) => dispatch(loadData(res.data.message)));
+  }, []);
 
   return (
     <ThemeProvider theme={mdTheme}>

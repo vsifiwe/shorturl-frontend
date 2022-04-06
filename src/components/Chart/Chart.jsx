@@ -6,6 +6,8 @@ import {
   XAxis,
   YAxis,
   Label,
+  PieChart,
+  Pie,
   ResponsiveContainer,
 } from "recharts";
 import { useSelector } from "react-redux";
@@ -36,7 +38,7 @@ export default function Chart() {
     <React.Fragment>
       <h2>Today</h2>
       <ResponsiveContainer>
-        <LineChart
+        {/* <LineChart
           data={data}
           margin={{
             top: 16,
@@ -73,7 +75,19 @@ export default function Chart() {
             stroke={theme.palette.primary.main}
             dot={false}
           />
-        </LineChart>
+        </LineChart> */}
+        <PieChart width={730} height={250}>
+          <Pie
+            data={data}
+            dataKey="amount"
+            nameKey="device"
+            cx="50%"
+            cy="50%"
+            outerRadius={50}
+            fill="#8884d8"
+            label
+          />
+        </PieChart>
       </ResponsiveContainer>
     </React.Fragment>
   );
