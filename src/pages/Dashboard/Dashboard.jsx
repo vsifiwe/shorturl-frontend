@@ -16,12 +16,16 @@ import Paper from "@mui/material/Paper";
 import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import NotificationsIcon from "@mui/icons-material/Notifications";
+import LogoutIcon from "@mui/icons-material/Logout";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 import {
   SecondaryListItems,
   Views,
   Impressions,
   Chart,
+  NewLink,
+  QrCode,
 } from "../../components";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -144,11 +148,9 @@ function DashboardContent() {
               Dashboard
             </Typography>
             {/* This is a notification button which can be enabled later with a modal that shows announcements or notifications */}
-            {/* <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton> */}
+            <IconButton color="inherit">
+              <LogoutIcon />
+            </IconButton>
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
@@ -192,11 +194,12 @@ function DashboardContent() {
                   sx={{
                     p: 2,
                     display: "flex",
-                    flexDirection: "column",
-                    height: 240,
+                    flexDirection: "row",
+                    height: 200,
+                    // backgroundColor: "red",
                   }}
                 >
-                  <Chart />
+                  <NewLink />
                 </Paper>
               </Grid>
               {/* Impressions */}
@@ -206,7 +209,7 @@ function DashboardContent() {
                     p: 2,
                     display: "flex",
                     flexDirection: "column",
-                    height: 240,
+                    height: 200,
                   }}
                 >
                   <Impressions />
@@ -216,6 +219,30 @@ function DashboardContent() {
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
                   <Views />
+                </Paper>
+              </Grid>
+              <Grid item xs={12} md={8} lg={9}>
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                    height: 240,
+                  }}
+                >
+                  <Chart />
+                </Paper>
+              </Grid>
+              <Grid item xs={12} md={4} lg={3}>
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                    height: 240,
+                  }}
+                >
+                  <QrCode />
                 </Paper>
               </Grid>
             </Grid>

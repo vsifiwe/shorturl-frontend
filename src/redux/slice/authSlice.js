@@ -20,10 +20,13 @@ const initialState = {
       {device: "mobile safari", amount: 234},
       {device: "macos", amount: 127},
     ],
-    impressions: 0
+    deviceInfo: [],
+    impressions: 0,
+    currentUrl: ''
   },
   shorturls: [],
-  deviceInfo: []
+  deviceInfo: [],
+  qrColor: "#000000"
 };
 
 export const slice = createSlice({
@@ -76,11 +79,24 @@ export const slice = createSlice({
       const { totalViews, shorturls, deviceInfo } = action.payload;
       state.currentView.impressions = totalViews;
       state.shorturls = shorturls;
-      state.deviceInfo = deviceInfo;
-      state.currentView.data = deviceInfo;
+      state.currentView.deviceInfo = deviceInfo
+      // state.currentView.data = deviceInfo;
       state.isLoading = false;
     },
     updateCurrentView: (state, action) => {
+      let { data, impressions, shortUrl } = action.payload
+      state.currentView.deviceInfo = data
+      state.currentView.data = data
+      state.currentView.impressions = impressions
+      state.currentView.currentUrl = shortUrl
+      console.log(action.payload);
+    },
+    createNewLinkSuccess: (state, action) => {
+      let d = action.payload
+      d['data'] = []
+      state.shorturls.push(d)
+    },
+    changeQrColor: (state, action) => {
       console.log(action.payload)
     }
   },
@@ -93,7 +109,9 @@ export const {
   startEmailLogin,
   startLoading,
   loadData,
-  updateCurrentView
+  updateCurrentView,
+  createNewLinkSuccess,
+  changeQrColor
 } = slice.actions;
 
 export default slice.reducer;
