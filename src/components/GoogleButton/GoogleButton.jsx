@@ -1,6 +1,7 @@
 import React from "react";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
 import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
 import {
   responseGoogleSuccess,
   responseGoogleError,
@@ -18,20 +19,22 @@ export default function GoogleButton() {
     <div className="row mt-5">
       <div className="col-md-12">
         {isLoggedIn ? (
-          <div>
-            <h1>Welcome, {userInfo.name}</h1>
-
-            <GoogleLogout
-              clientId={CLIENT_ID}
-              buttonText={"Logout"}
-              onLogoutSuccess={() => dispatch(handleLogout())}
-            ></GoogleLogout>
-          </div>
+          <GoogleLogout
+            clientId={CLIENT_ID}
+            buttonText={"Logout"}
+            onLogoutSuccess={() => dispatch(handleLogout())}
+          ></GoogleLogout>
         ) : (
           <GoogleLogin
             clientId={CLIENT_ID}
             buttonText="Sign In with Google"
-            onSuccess={(res) => dispatch(responseGoogleSuccess(res))}
+            onSuccess={(res) => {
+              axios
+                .post("http://localhost:8000/social/google/", {
+                  auth_token: res.tokenObj.id_token,
+                })
+                .then((res) => dispatch(responseGoogleSuccess(res.data)));
+            }}
             onFailure={(res) => dispatch(responseGoogleError(res))}
             isSignedIn={true}
             cookiePolicy={"single_host_origin"}

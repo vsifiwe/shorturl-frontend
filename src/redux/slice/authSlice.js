@@ -35,12 +35,12 @@ export const slice = createSlice({
   reducers: {
     responseGoogleSuccess: (state, action) => {
       console.log(action.payload);
-      let newUserInfo = {
-        name: action.payload.profileObj.name,
-        emailId: action.payload.profileObj.email,
-      };
-      state.userInfo = newUserInfo;
-      state.isLoggedIn = true;
+      // let newUserInfo = {
+      //   name: action.payload.profileObj.name,
+      //   emailId: action.payload.profileObj.email,
+      // };
+      // state.userInfo = newUserInfo;
+      // state.isLoggedIn = true;
     },
     responseGoogleError: (state, action) => {
       console.log(action.payload);
