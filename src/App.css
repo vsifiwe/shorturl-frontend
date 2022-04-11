@@ -90,3 +90,8 @@ a {
   list-style-type: none;
   gap: 10px;
 }
+
+.social-btns {
+  display: flex;
+  gap: 5%
+}
