@@ -56,6 +56,7 @@ export default function NewLink() {
               name="link"
               id="outlined-basic"
               label="Long link"
+              fullWidth
               variant="outlined"
               onChange={handleChange}
               onBlur={handleBlur}
@@ -114,6 +115,7 @@ export default function NewLink() {
               name="link"
               id="outlined-basic"
               disabled
+              sx={{ width: 300 }}
               label="Short link"
               variant="outlined"
               onChange={handleChange}
