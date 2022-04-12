@@ -107,6 +107,7 @@ export const slice = createSlice({
     createNewLinkSuccess: (state, action) => {
       let d = action.payload
       d['data'] = []
+      d['deviceInfo'] = []
       state.shorturls.push(d)
     },
     changeQrColor: (state, action) => {
