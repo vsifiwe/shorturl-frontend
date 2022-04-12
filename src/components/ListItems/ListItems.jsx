@@ -1,8 +1,10 @@
 import * as React from "react";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import ListSubheader from "@mui/material/ListSubheader";
+import {
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  ListSubheader,
+} from "@mui/material";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PeopleIcon from "@mui/icons-material/People";
@@ -11,6 +13,8 @@ import LayersIcon from "@mui/icons-material/Layers";
 import AssignmentIcon from "@mui/icons-material/Link";
 import { useDispatch, useSelector } from "react-redux";
 import { updateCurrentView } from "../../redux/slice/authSlice";
+import { CSVLink } from "react-csv";
+import { CSVDownload } from "react-csv";
 
 export const mainListItems = (
   <React.Fragment>
@@ -63,6 +67,27 @@ export const SecondaryListItems = () => {
           <ListItemText primary={d.uuid} />
         </ListItemButton>
       ))}
+    </React.Fragment>
+  );
+};
+export const ActionListItems = () => {
+  const csvData = useSelector((state) => state.auth.shorturls);
+  const [download, setDownload] = React.useState(false);
+  return (
+    <React.Fragment>
+      <ListItemButton onClick={() => setDownload(true)}>
+        <ListItemIcon>
+          <DashboardIcon />
+        </ListItemIcon>
+        <ListItemText primary="Export to CSV" />
+        {download && (
+          <CSVDownload
+            filename={"export-url.csv"}
+            data={csvData}
+            target="_blank"
+          />
+        )}
+      </ListItemButton>
     </React.Fragment>
   );
 };
