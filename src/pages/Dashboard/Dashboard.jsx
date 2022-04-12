@@ -38,7 +38,6 @@ import {
   loadData,
   handleLogout,
 } from "../../redux/slice/authSlice";
-import { CSVLink } from "react-csv";
 
 function Copyright(props) {
   return (
@@ -107,7 +106,7 @@ const Drawer = styled(MuiDrawer, {
 const mdTheme = createTheme();
 
 function DashboardContent() {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -246,7 +245,7 @@ function DashboardContent() {
                     p: 2,
                     display: "flex",
                     flexDirection: "column",
-                    height: 240,
+                    height: 300,
                   }}
                 >
                   <Chart />
@@ -258,7 +257,7 @@ function DashboardContent() {
                     p: 2,
                     display: "flex",
                     flexDirection: "column",
-                    height: 240,
+                    height: 300,
                   }}
                 >
                   <QrCode />

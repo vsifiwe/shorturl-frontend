@@ -103,7 +103,6 @@ export const slice = createSlice({
       state.currentView.data = data
       state.currentView.impressions = impressions
       state.currentView.currentUrl = shortUrl
-      console.log(action.payload);
     },
     createNewLinkSuccess: (state, action) => {
       let d = action.payload
@@ -111,7 +110,7 @@ export const slice = createSlice({
       state.shorturls.push(d)
     },
     changeQrColor: (state, action) => {
-      console.log(action.payload)
+      state.qrColor = action.payload
     }
   },
 });
