@@ -1,6 +1,7 @@
 import React from "react";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
   responseGoogleSuccess,
@@ -14,6 +15,7 @@ export default function GoogleButton() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const userInfo = useSelector((state) => state.auth.userInfo);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return (
     <div className="row mt-5">
@@ -33,10 +35,11 @@ export default function GoogleButton() {
                 .post("http://localhost:8000/social/google/", {
                   auth_token: res.tokenObj.id_token,
                 })
-                .then((res) => dispatch(responseGoogleSuccess(res.data)));
+                .then((res) => dispatch(responseGoogleSuccess(res.data)))
+                .then(() => navigate("/dashboard"));
             }}
             onFailure={(res) => dispatch(responseGoogleError(res))}
-            isSignedIn={true}
+            // isSignedIn={true}
             cookiePolicy={"single_host_origin"}
           />
         )}

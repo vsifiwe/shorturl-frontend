@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
@@ -29,7 +30,11 @@ import {
 } from "../../components";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { startLoading, loadData } from "../../redux/slice/authSlice";
+import {
+  startLoading,
+  loadData,
+  handleLogout,
+} from "../../redux/slice/authSlice";
 
 function Copyright(props) {
   return (
@@ -106,6 +111,7 @@ function DashboardContent() {
   let token = useSelector((state) => state.auth.tokens.access);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(() => startLoading());
     let config = {
@@ -148,7 +154,13 @@ function DashboardContent() {
               Dashboard
             </Typography>
             {/* This is a notification button which can be enabled later with a modal that shows announcements or notifications */}
-            <IconButton color="inherit">
+            <IconButton
+              onClick={() => {
+                dispatch(handleLogout());
+                navigate("/");
+              }}
+              color="inherit"
+            >
               <LogoutIcon />
             </IconButton>
           </Toolbar>

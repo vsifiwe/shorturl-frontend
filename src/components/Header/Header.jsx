@@ -18,12 +18,14 @@ export default function Header() {
       </div>
       <div>
         <ul>
-          <Button variant="outlined">
+          <Button variant="outlined" color="warning">
             <Link to="/login">Login</Link>
           </Button>
 
           <Link to="/register">
-            <Button variant="contained">Register</Button>
+            <Button variant="contained" color="error">
+              Register
+            </Button>
           </Link>
         </ul>
       </div>

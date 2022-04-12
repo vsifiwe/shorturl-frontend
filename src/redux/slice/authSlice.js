@@ -34,24 +34,38 @@ export const slice = createSlice({
   initialState,
   reducers: {
     responseGoogleSuccess: (state, action) => {
-      console.log(action.payload);
-      // let newUserInfo = {
-      //   name: action.payload.profileObj.name,
-      //   emailId: action.payload.profileObj.email,
-      // };
-      // state.userInfo = newUserInfo;
-      // state.isLoggedIn = true;
+      let newUserInfo = {
+        name: action.payload.username,
+        emailId: action.payload.email,
+      }
+
+      let tokens = {
+        access: action.payload.tokens.access, 
+        refresh: action.payload.tokens.refresh
+      }
+
+      state.userInfo = newUserInfo;
+      state.tokens = tokens;
+      state.isLoading = false;
+      state.isLoggedIn = true;
     },
     responseGoogleError: (state, action) => {
       console.log(action.payload);
     },
     handleLogout: (state) => {
-      let newUserInfo = {
-        name: "",
-        emailId: "",
-      };
-      state.userInfo = newUserInfo;
+      
+      state.isLoading = false;
       state.isLoggedIn = false;
+      state.userInfo.emailId = "";
+      state.userInfo.name = "";
+      state.currentView.currentUrl = "";
+      state.currentView.data = [];
+      state.currentView.deviceInfo = [];
+      state.currentView.impressions = 0;
+      state.tokens.access = "";
+      state.tokens.refresh = "";
+      state.deviceInfo = [];
+      state.shorturls = [];
     },
     startEmailLogin: (state) => {
       state.isLoading = true;
