@@ -26,6 +26,7 @@ const initialState = {
   },
   shorturls: [],
   deviceInfo: [],
+  totalImpressions: 0,
   qrColor: "#000000"
 };
 
@@ -92,8 +93,10 @@ export const slice = createSlice({
     loadData: (state, action) => {
       const { totalViews, shorturls, deviceInfo } = action.payload;
       state.currentView.impressions = totalViews;
+      state.totalImpressions = totalViews;
       state.shorturls = shorturls;
-      state.currentView.deviceInfo = deviceInfo
+      state.currentView.deviceInfo = deviceInfo;
+      state.deviceInfo = deviceInfo;
       // state.currentView.data = deviceInfo;
       state.isLoading = false;
     },
@@ -103,6 +106,11 @@ export const slice = createSlice({
       state.currentView.data = data
       state.currentView.impressions = impressions
       state.currentView.currentUrl = shortUrl
+    },
+    resetCurrentView: (state) => {
+      state.currentView.impressions = state.totalImpressions;
+      state.currentView.currentUrl = "";
+      state.currentView.deviceInfo = state.deviceInfo;
     },
     createNewLinkSuccess: (state, action) => {
       let d = action.payload
@@ -125,7 +133,8 @@ export const {
   loadData,
   updateCurrentView,
   createNewLinkSuccess,
-  changeQrColor
+  changeQrColor,
+  resetCurrentView,
 } = slice.actions;
 
 export default slice.reducer;
