@@ -1,6 +1,8 @@
 import React from "react";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import {
   responseGoogleSuccess,
   responseGoogleError,
@@ -13,27 +15,31 @@ export default function GoogleButton() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const userInfo = useSelector((state) => state.auth.userInfo);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return (
     <div className="row mt-5">
       <div className="col-md-12">
         {isLoggedIn ? (
-          <div>
-            <h1>Welcome, {userInfo.name}</h1>
-
-            <GoogleLogout
-              clientId={CLIENT_ID}
-              buttonText={"Logout"}
-              onLogoutSuccess={() => dispatch(handleLogout())}
-            ></GoogleLogout>
-          </div>
+          <GoogleLogout
+            clientId={CLIENT_ID}
+            buttonText={"Logout"}
+            onLogoutSuccess={() => dispatch(handleLogout())}
+          ></GoogleLogout>
         ) : (
           <GoogleLogin
             clientId={CLIENT_ID}
             buttonText="Sign In with Google"
-            onSuccess={(res) => dispatch(responseGoogleSuccess(res))}
+            onSuccess={(res) => {
+              axios
+                .post(`${process.env.REACT_APP_BACKEND_URL}/social/google/`, {
+                  auth_token: res.tokenObj.id_token,
+                })
+                .then((res) => dispatch(responseGoogleSuccess(res.data)))
+                .then(() => navigate("/dashboard"));
+            }}
             onFailure={(res) => dispatch(responseGoogleError(res))}
-            isSignedIn={true}
+            // isSignedIn={true}
             cookiePolicy={"single_host_origin"}
           />
         )}

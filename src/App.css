@@ -5,7 +5,7 @@
 
 .container {
   width: 80vw;
-  margin-left: 5%;
+  /* margin-left: 5%; */
 }
 
 .hero {
@@ -89,4 +89,9 @@ a {
   display: flex;
   list-style-type: none;
   gap: 10px;
+}
+
+.social-btns {
+  display: flex;
+  gap: 5%
 }

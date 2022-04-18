@@ -26,7 +26,9 @@ const initialState = {
   },
   shorturls: [],
   deviceInfo: [],
-  qrColor: "#000000"
+  totalImpressions: 0,
+  qrColor: "#000000",
+  currentInfo: {}
 };
 
 export const slice = createSlice({
@@ -34,24 +36,38 @@ export const slice = createSlice({
   initialState,
   reducers: {
     responseGoogleSuccess: (state, action) => {
-      console.log(action.payload);
       let newUserInfo = {
-        name: action.payload.profileObj.name,
-        emailId: action.payload.profileObj.email,
-      };
+        name: action.payload.username,
+        emailId: action.payload.email,
+      }
+
+      let tokens = {
+        access: action.payload.tokens.access, 
+        refresh: action.payload.tokens.refresh
+      }
+
       state.userInfo = newUserInfo;
+      state.tokens = tokens;
+      state.isLoading = false;
       state.isLoggedIn = true;
     },
     responseGoogleError: (state, action) => {
       console.log(action.payload);
     },
     handleLogout: (state) => {
-      let newUserInfo = {
-        name: "",
-        emailId: "",
-      };
-      state.userInfo = newUserInfo;
+      
+      state.isLoading = false;
       state.isLoggedIn = false;
+      state.userInfo.emailId = "";
+      state.userInfo.name = "";
+      state.currentView.currentUrl = "";
+      state.currentView.data = [];
+      state.currentView.deviceInfo = [];
+      state.currentView.impressions = 0;
+      state.tokens.access = "";
+      state.tokens.refresh = "";
+      state.deviceInfo = [];
+      state.shorturls = [];
     },
     startEmailLogin: (state) => {
       state.isLoading = true;
@@ -78,26 +94,34 @@ export const slice = createSlice({
     loadData: (state, action) => {
       const { totalViews, shorturls, deviceInfo } = action.payload;
       state.currentView.impressions = totalViews;
+      state.totalImpressions = totalViews;
       state.shorturls = shorturls;
-      state.currentView.deviceInfo = deviceInfo
+      state.currentView.deviceInfo = deviceInfo;
+      state.deviceInfo = deviceInfo;
       // state.currentView.data = deviceInfo;
       state.isLoading = false;
     },
     updateCurrentView: (state, action) => {
       let { data, impressions, shortUrl } = action.payload
+      state.currentInfo = action.payload
       state.currentView.deviceInfo = data
       state.currentView.data = data
       state.currentView.impressions = impressions
       state.currentView.currentUrl = shortUrl
-      console.log(action.payload);
+    },
+    resetCurrentView: (state) => {
+      state.currentView.impressions = state.totalImpressions;
+      state.currentView.currentUrl = "";
+      state.currentView.deviceInfo = state.deviceInfo;
     },
     createNewLinkSuccess: (state, action) => {
       let d = action.payload
       d['data'] = []
+      d['deviceInfo'] = []
       state.shorturls.push(d)
     },
     changeQrColor: (state, action) => {
-      console.log(action.payload)
+      state.qrColor = action.payload
     }
   },
 });
@@ -111,7 +135,8 @@ export const {
   loadData,
   updateCurrentView,
   createNewLinkSuccess,
-  changeQrColor
+  changeQrColor,
+  resetCurrentView,
 } = slice.actions;
 
 export default slice.reducer;
