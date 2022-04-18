@@ -27,7 +27,8 @@ const initialState = {
   shorturls: [],
   deviceInfo: [],
   totalImpressions: 0,
-  qrColor: "#000000"
+  qrColor: "#000000",
+  currentInfo: {}
 };
 
 export const slice = createSlice({
@@ -102,6 +103,7 @@ export const slice = createSlice({
     },
     updateCurrentView: (state, action) => {
       let { data, impressions, shortUrl } = action.payload
+      state.currentInfo = action.payload
       state.currentView.deviceInfo = data
       state.currentView.data = data
       state.currentView.impressions = impressions
