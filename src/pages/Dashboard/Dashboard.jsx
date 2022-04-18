@@ -122,7 +122,7 @@ function DashboardContent() {
       headers: { Authorization: `Bearer ${token}` },
     };
     axios
-      .get("http://localhost:8000/s/urls", config)
+      .get(`${process.env.REACT_APP_BACKEND_URL}/s/urls`, config)
       .then((res) => dispatch(loadData(res.data)));
   }, []);
 

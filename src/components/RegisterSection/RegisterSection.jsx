@@ -133,7 +133,7 @@ export default function RegisterSection() {
     onSubmit: (values) => {
       dispatch(() => startEmailLogin());
       axios
-        .post("http://localhost:8000/auth/register/", values)
+        .post(`${process.env.REACT_APP_BACKEND_URL}/auth/register/`, values)
         .then(() => navigate("/login"))
         .catch(() => alert("An error occured in your registration"));
     },

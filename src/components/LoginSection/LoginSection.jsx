@@ -119,7 +119,7 @@ export default function LoginSection() {
       // console.log(values);
       dispatch(() => dispatch(startEmailLogin()));
       axios
-        .post(`http://localhost:8000/auth/login/`, values)
+        .post(`${process.env.REACT_APP_BACKEND_URL}/auth/login/`, values)
         .then((res) => dispatch(handleEmailLogin(res.data)))
         .then(() => navigate("/dashboard"));
     },

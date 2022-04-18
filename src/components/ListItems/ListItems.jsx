@@ -84,8 +84,8 @@ export const SecondaryListItems = () => {
           <ListItemText primary={d.uuid} />
         </ListItemButton>
       ))}
-      <ListItemButton>
-        <ListItemIcon onClick={() => dispatch(resetCurrentView())}>
+      <ListItemButton onClick={() => dispatch(resetCurrentView())}>
+        <ListItemIcon>
           <AddBoxIcon />
         </ListItemIcon>
         <ListItemText primary="New Link" />
@@ -119,7 +119,7 @@ export const ActionListItems = () => {
       data.append("csv_file", values.csv_file);
 
       axios
-        .post("http://localhost:8000/s/bulk", data, config)
+        .post(`${process.env.REACT_APP_BACKEND_URL}/s/bulk`, data, config)
         .then((res) => console.log(res))
         .then(handleClose);
     },

@@ -48,7 +48,7 @@ export default function NewLink() {
           isLoading(true);
           axios
             .post(
-              "http://localhost:8000/s/create/",
+              `${process.env.REACT_APP_BACKEND_URL}/s/create/`,
               { url: values.link },
               config
             )
@@ -212,10 +212,14 @@ export default function NewLink() {
             owner: values.owner,
           };
           axios
-            .put(`http://localhost:8000/s/${values.id}/`, data, config)
+            .put(
+              `${process.env.REACT_APP_BACKEND_URL}/s/${values.id}/`,
+              data,
+              config
+            )
             .then(() =>
               axios
-                .get("http://localhost:8000/s/urls", config)
+                .get(`${process.env.REACT_APP_BACKEND_URL}/s/urls`, config)
                 .then((res) => dispatch(loadData(res.data)))
                 .finally(handleClose)
             )

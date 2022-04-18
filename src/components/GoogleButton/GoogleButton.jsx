@@ -32,7 +32,7 @@ export default function GoogleButton() {
             buttonText="Sign In with Google"
             onSuccess={(res) => {
               axios
-                .post("http://localhost:8000/social/google/", {
+                .post(`${process.env.REACT_APP_BACKEND_URL}/social/google/`, {
                   auth_token: res.tokenObj.id_token,
                 })
                 .then((res) => dispatch(responseGoogleSuccess(res.data)))
