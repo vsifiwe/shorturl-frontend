@@ -1,4 +1,5 @@
 import * as React from "react";
+import configFile from "../../config.json";
 import {
   ListItemButton,
   ListItemIcon,
@@ -119,7 +120,7 @@ export const ActionListItems = () => {
       data.append("csv_file", values.csv_file);
 
       axios
-        .post(`${process.env.REACT_APP_BACKEND_URL}/s/bulk`, data, config)
+        .post(`${configFile.api}/s/bulk`, data, config)
         .then((res) => console.log(res))
         .then(handleClose);
     },

@@ -78,6 +78,7 @@
 // }
 
 import * as React from "react";
+import configFile from "../../config.json";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -133,7 +134,7 @@ export default function RegisterSection() {
     onSubmit: (values) => {
       dispatch(() => startEmailLogin());
       axios
-        .post(`${process.env.REACT_APP_BACKEND_URL}/auth/register/`, values)
+        .post(`${configFile.api}/auth/register/`, values)
         .then(() => navigate("/login"))
         .catch(() => alert("An error occured in your registration"));
     },

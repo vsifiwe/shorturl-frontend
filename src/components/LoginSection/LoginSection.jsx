@@ -64,6 +64,7 @@
 // }
 
 import * as React from "react";
+import configFile from "../../config.json";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -119,7 +120,7 @@ export default function LoginSection() {
       // console.log(values);
       dispatch(() => dispatch(startEmailLogin()));
       axios
-        .post(`${process.env.REACT_APP_BACKEND_URL}/auth/login/`, values)
+        .post(`${configFile.api}/auth/login/`, values)
         .then((res) => dispatch(handleEmailLogin(res.data)))
         .then(() => navigate("/dashboard"));
     },
