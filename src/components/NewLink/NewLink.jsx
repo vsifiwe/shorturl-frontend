@@ -1,4 +1,5 @@
 import react, { useState } from "react";
+import configFile from "../../config.json";
 import {
   TextField,
   Button,
@@ -47,11 +48,7 @@ export default function NewLink() {
         onSubmit={(values) => {
           isLoading(true);
           axios
-            .post(
-              `${process.env.REACT_APP_BACKEND_URL}/s/create/`,
-              { url: values.link },
-              config
-            )
+            .post(`${configFile.api}/s/create/`, { url: values.link }, config)
             .then((res) => {
               if (res.status === 201) {
                 dispatch(createNewLinkSuccess(res.data));
@@ -212,14 +209,10 @@ export default function NewLink() {
             owner: values.owner,
           };
           axios
-            .put(
-              `${process.env.REACT_APP_BACKEND_URL}/s/${values.id}/`,
-              data,
-              config
-            )
+            .put(`${configFile.api}/s/${values.id}/`, data, config)
             .then(() =>
               axios
-                .get(`${process.env.REACT_APP_BACKEND_URL}/s/urls`, config)
+                .get(`${configFile.api}/s/urls`, config)
                 .then((res) => dispatch(loadData(res.data)))
                 .finally(handleClose)
             )

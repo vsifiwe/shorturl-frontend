@@ -1,4 +1,5 @@
 import React from "react";
+import config from "../../config.json";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -32,7 +33,7 @@ export default function GoogleButton() {
             buttonText="Sign In with Google"
             onSuccess={(res) => {
               axios
-                .post(`${process.env.REACT_APP_BACKEND_URL}/social/google/`, {
+                .post(`${config.api}/social/google/`, {
                   auth_token: res.tokenObj.id_token,
                 })
                 .then((res) => dispatch(responseGoogleSuccess(res.data)))

@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import configFile from "../../config.json";
 import { useNavigate } from "react-router-dom";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import {
@@ -122,7 +123,7 @@ function DashboardContent() {
       headers: { Authorization: `Bearer ${token}` },
     };
     axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/s/urls`, config)
+      .get(`${configFile.api}/s/urls`, config)
       .then((res) => dispatch(loadData(res.data)));
   }, []);
 
