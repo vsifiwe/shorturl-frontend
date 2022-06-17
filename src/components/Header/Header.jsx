@@ -1,21 +1,24 @@
 import React from "react";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
+import logo from '../../images/logo.png'
 
 export default function Header() {
   return (
     <div className="header">
       <img
-        src="https://amalitech.com/wp-content/uploads/2020/04/amali-services-white-01-294x84.png"
+        src={logo}
+        height="100"
+        width="250"
         alt="Amalitech services logo"
       />
-      <div>
+      {/* <div>
         <ul>
           <li>Features</li>
           <li>About Us</li>
           <li>Pricing</li>
         </ul>
-      </div>
+      </div> */}
       <div>
         <ul>
           <Button variant="outlined" color="warning">
